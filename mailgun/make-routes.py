@@ -16,7 +16,7 @@ def createRoute(source, target):
         "https://api.mailgun.net/v3/routes",
         auth=(username, api_key),
         data={"priority": 10,
-              "description": "TESTING PYTHON ROUTES",
+              "description": "%s - %s"%(source, target),
               "expression": "match_recipient('%s')" %source,
               "action": ["forward('%s')" %target, "stop()"]}
     )
