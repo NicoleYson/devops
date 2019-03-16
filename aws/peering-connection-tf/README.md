@@ -28,9 +28,10 @@ module "pcx" {
   peering_connection_name = "vpc 1 to vpc2"
   accepter_vpc_id         = "${data.aws_vpc.vpc2.id}"
   accepter_route_table_ids = "[optional, if blank will add to all]"
+  accepter_cidr_block = "[optional, if blank will peer entire vpc]"
   requester_vpc_id        = "${data.aws_vpc.vpc1.id}"
   requester_route_table_ids = "[optional, if blank will add to all]"
-
+  requester_cidr_block = "[optional, if blank will peer entire vpc]"
 
   providers = {
     "aws.accepter"  = "aws.<ALIAS-NAME>"

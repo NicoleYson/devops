@@ -21,3 +21,13 @@ variable "requester_route_table_ids" {
   default     = []
   type        = "list"
 }
+
+variable "requester_cidr_block" {
+  description = "Requester CIDR block to be peered."
+  default = ""
+}
+
+variable "accepter_cidr_block" {
+  description = "Accepter CIDR block to be peered."
+  default = ""
+}

@@ -34,7 +34,7 @@ resource "aws_route" "defined_route" {
   count          = "${length(var.accepter_accepter_route_table_ids)}"
   route_table_id = "${element(var.accepter_accepter_route_table_ids, count.index)}"
 
-  destination_cidr_block    = "${data.aws_vpc.accepter.cidr_block}"
+  destination_cidr_block    = "${var.requester_cidr_block == "" ? data.aws_vpc.requester.cidr_block : var.requester_cidr_block }"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.pcx.id}"
 }
 
@@ -45,6 +45,6 @@ resource "aws_route" "all_route_tables" {
   # If the user does not define any route table ids, then this data resource is utilized. Otherwise, this resource isn't used at all.
   count                     = "${length(var.accepter_route_table_ids) == 0 ? length(data.aws_route_tables.acc_rt.ids) : 0}"
   route_table_id            = "${data.aws_route_tables.acc_rt.ids[count.index]}"
-  destination_cidr_block    = "${data.aws_vpc.accepter.cidr_block}"
+  destination_cidr_block    = "${var.requester_cidr_block == "" ? data.aws_vpc.requester.cidr_block : var.requester_cidr_block }"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.pcx.id}"
 }
